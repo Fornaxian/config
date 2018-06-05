@@ -14,7 +14,7 @@ type Manager struct {
 	confPaths     []string
 	fileName      string
 	defaultConfig string
-	Conf          *interface{}
+	Conf          interface{}
 }
 
 // ErrNoConfigFound returned by ReloadConfig if no config file cound be found
@@ -53,7 +53,7 @@ func (ErrNoConfigFound) Error() string {
 //                  Manager.LoadConfig manually.
 func New(
 	defaultConf, confDir, fileName string,
-	config *interface{},
+	config interface{},
 	autoload bool,
 ) (*Manager, error) {
 	var err error
