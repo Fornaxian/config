@@ -56,15 +56,21 @@ func New(
 	config interface{},
 	autoload bool,
 ) (*Manager, error) {
+	var confPaths = []string{}
+	if confDir != "" {
+		confPaths = append(confPaths, confDir+"/"+fileName)
+	}
+	confPaths = append(
+		confPaths,
+		fileName, // In the working directory
+		fmt.Sprintf("%s/.config/%s", os.Getenv("HOME"), fileName),
+		"/usr/local/etc/"+fileName,
+		"/etc/"+fileName,
+	)
+
 	var err error
 	var c = &Manager{
-		confPaths: []string{
-			confDir + "/" + fileName,
-			fileName, // In the working directory
-			fmt.Sprintf("%s/.config/%s", os.Getenv("HOME"), fileName),
-			"/usr/local/etc/" + fileName,
-			"/etc/" + fileName,
-		},
+		confPaths:     confPaths,
 		fileName:      fileName,
 		defaultConfig: defaultConf,
 		Conf:          config,
