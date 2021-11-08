@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 
+	"fornaxian.tech/log"
 	"github.com/BurntSushi/toml"
-	"github.com/Fornaxian/log"
 )
 
 // Manager is in charge of finding and reading configuration files
